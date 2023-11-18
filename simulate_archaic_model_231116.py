@@ -1,8 +1,12 @@
 """
 Simulate from model A or C, record sfs, genotypes, coal data
 Usage 
-    python /home/trc468/notebooks/archaics/simulate_archaic_model_231116.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 10 -mu 1.25e-08 -r 1e-08 -L 5e+06 -gen 29
-    python /home/trc468/notebooks/archaics/simulate_archaic_model_231116.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 10 -mu 1.25e-08 -r 1e-08 -L 1e+05 -gen 29
+    python /home/trc468/mars/simulate_archaic_model_231116.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 10 -mu 1.25e-08 -r 1e-08 -L 5e+06 -gen 29
+    python /home/trc468/mars/simulate_archaic_model_231116.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 10 -mu 1.25e-08 -r 1e-08 -L 1e+05 -gen 29
+
+    python /home/trc468/mars/simulate_archaic_model_231116.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /home/trc468/notebooks/archaics/simulations_testing_231118/231118_1132 -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+07 -gen 29
+    python /home/trc468/mars/simulate_archaic_model_231116.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+07 -gen 29
+
 
 """
 
@@ -46,19 +50,28 @@ def get_sfs(gtmat,num_MH):
     nd10 = np.zeros(num_MH+1)
     nd11 = np.zeros(num_MH+1)
 
+    # remove double mutations
+    nodoublemutations = np.where(gtmat[:,1:].max(axis=1)==1)[0] 
+    gtmat = gtmat[nodoublemutations,:]
+
+    num_monomorphic_ancestral = L -len(nodoublemutations) - gtmat.shape[0]
+
     ndxx_counts = gtmat[:,1:-4].sum(axis=1)
     ndxx = np.histogram(ndxx_counts,bins=np.arange(0,num_MH+1))[0]
+    ndxx[0]+=num_monomorphic_ancestral
 
-    nd00_counts = gtmat[(gtmat[:,num_MH+1]==0) & (gtmat[:,num_MH+3]==0)] # condition on NEA and DEN hap being ancestral
+    nd00_counts = gtmat[(gtmat[:,num_MH+1]==0) & (gtmat[:,num_MH+3]==0),1:-4].sum(axis=1) # condition on NEA and DEN hap being ancestral
     nd00 = np.histogram(nd00_counts,bins=np.arange(0,num_MH+1))[0]
+    nd00[0]+=num_monomorphic_ancestral
 
-    nd10_counts = gtmat[(gtmat[:,num_MH+1]==1) ] # condition on NEA being derived
+
+    nd10_counts = gtmat[(gtmat[:,num_MH+1]==1) & (gtmat[:,num_MH+3]==0),1:-4].sum(axis=1) # condition on NEA being derived and DEN ancestral
     nd10 = np.histogram(nd10_counts,bins=np.arange(0,num_MH+1))[0]
 
-    nd01_counts = gtmat[(gtmat[:,num_MH+3]==1) ] # condition on DEN being derived
+    nd01_counts = gtmat[(gtmat[:,num_MH+1]==0) & (gtmat[:,num_MH+3]==1),1:-4].sum(axis=1) # condition on DEN being derived and NEA ancestral
     nd01 = np.histogram(nd01_counts,bins=np.arange(0,num_MH+1))[0]
 
-    nd11_counts = gtmat[(gtmat[:,num_MH+1]==1) & (gtmat[:,num_MH+3]==1) ] # condition on NEA and DEN being derived
+    nd11_counts = gtmat[(gtmat[:,num_MH+1]==1) & (gtmat[:,num_MH+3]==1),1:-4].sum(axis=1) # condition on NEA and DEN being derived
     nd11 = np.histogram(nd11_counts,bins=np.arange(0,num_MH+1))[0]
     return ndxx,nd00,nd10,nd01,nd11
 
@@ -115,6 +128,11 @@ parser.add_argument('-L','--L',help='Length of haplotypes',required=True,type=fl
 parser.add_argument('-mu','--mu',help='mutation rate per generation per base pair',required=True,type=float)
 parser.add_argument('-r','--r',help='recombination rate per generation per base pair',required=True,type=float)
 parser.add_argument('-out_prefix','--out_prefix',help='output path (prefix) for data ',required=True,type=str)
+
+arguments = sys.argv[1:]
+command_line = 'python ' + ' '.join(['"{}"'.format(arg) if ' ' in arg else arg for arg in [sys.argv[0]] + arguments])
+print(f'Command line: {command_line}')
+print()
 
 args = parser.parse_args()
 zargs = dir(args)
