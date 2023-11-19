@@ -92,7 +92,6 @@ def combine_gtmat_coaldata(gtmat,coaldata):
         zcount+=1
     return combined_gt_coal
 
-
 parser = argparse.ArgumentParser(description="Set parameters for simulation")
 parser.add_argument('-gen','--generation_time',help='Years per generation',required=True,type=int,default=29)
 parser.add_argument('-NEA_age','--NEA_age',help='age of sampling for Neanderthal',required=False,type=int,default=3000)
@@ -287,6 +286,12 @@ zgtmat = msim.genotype_matrix()
 gtmat = np.zeros(shape=(zgtmat.shape[0],zgtmat.shape[1]+1),dtype=int)
 gtmat[:,0] = pos
 gtmat[:,1:] = zgtmat
+zb = gtmat.shape[0]
+ze = len(np.where(gtmat[:,1:].sum(axis=1)==0)[0])
+zd = len(np.where(gtmat[:,1:].max(axis=1)==2)[0])
+gtmat = gtmat[np.where(gtmat[:,1:].max(axis=1)==1)[0],:] # remove double mutations
+za = gtmat.shape[0]
+print(f'\tOut of {zb-ze} sites, removed {zd} sites where there are double mutations')
 
 
 zstring = [f'MHhap{i}' for i in MH_indices]
