@@ -274,13 +274,11 @@ elif model=='A':
 
 
 sim = msprime.sim_ancestry( # simulate ancestry
-# TODO CHECK THIS
     samples=[msprime.SampleSet(num_samples=num_MH, ploidy=1,population='modern',time=0), 
             msprime.SampleSet(num_samples=1, ploidy=2,population='neanderthal',time=NEA_age), \
             msprime.SampleSet(num_samples=1, ploidy=2,population='denisovan',time=DEN_age)],\
             demography=demography,sequence_length=L,recombination_rate=r)
 msim = msprime.sim_mutations(sim, rate=mu) # add mutations
-# TODO GOT HERE
 pos = np.array([int(i.position) for i in msim.variants()])
 zgtmat = msim.genotype_matrix()
 gtmat = np.zeros(shape=(zgtmat.shape[0],zgtmat.shape[1]+1),dtype=int)
