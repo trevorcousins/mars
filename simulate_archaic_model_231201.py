@@ -97,8 +97,8 @@ parser = argparse.ArgumentParser(description="Set parameters for simulation")
 parser.add_argument('-num_MH','--num_MH',help='Number of MH haplotypes to simulate',required=True,type=int)
 
 parser.add_argument('-gen','--generation_time',help='Years per generation',required=False,type=int,default=29)
-parser.add_argument('-NEA_age','--NEA_age',help='age of sampling for Neanderthal',required=False,type=int,default=3000)
-parser.add_argument('-DEN_age','--DEN_age',help='age of sampling for Neanderthal',required=False,type=int,default=2500)
+parser.add_argument('-NEA_age','--NEA_age',help='age of sampling for Neanderthal in years',required=False,type=int,default=100000)
+parser.add_argument('-DEN_age','--DEN_age',help='age of sampling for Denisovans in years',required=False,type=int,default=80000)
 parser.add_argument('-model','--model',help='Simulate from model A or model C',required=True,type=str)
 parser.add_argument('-T_super_archaic','--T_super_archaic',help='split time in years of root of (ancestral_humans,ghost)',required=False,type=float)
 parser.add_argument('-T_modern_archaic','--T_modern_archaic',help='split time in years of main human lineage and lineage leading to (DEN,NEA)',required=False,type=float)
@@ -188,6 +188,9 @@ zdemography = configure_demography(
     p_pulse_superghost_to_DEN,
     p_pulse_MH_to_NEA)
 
+
+NEA_age = NEA_age/generation_time
+DEN_age = DEN_age/generation_time
 
 sim = msprime.sim_ancestry( # simulate ancestry
     samples=[msprime.SampleSet(num_samples=num_MH, ploidy=1,population='modern',time=0), 

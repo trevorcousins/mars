@@ -155,6 +155,9 @@ SFS_YRI_nd11_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with co
 SFS_YRI_nd00_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with condition that Den is ancestral and Nea is ancestral. Include monomorphic and fixed derived
 
 
+NEA_age = NEA_age/generation_time
+DEN_age = DEN_age/generation_time
+
 start = time.time()
 for i in range(0,int(replicates)):
     sim = msprime.sim_ancestry( # simulate ancestry
@@ -289,7 +292,7 @@ for i in range(0,int(replicates)):
                 SFS_YRI_nd00_mut[numMHderived]+=1
 
  
-    if i%100==0:
+    if i%1000==0:
         print(f'on replicate={i} out of {replicates}',flush=True)
         if record_muts:    
             np.savetxt(out_SFS+'YRIndxx_muts.txt',SFS_YRI_ndxx_mut)
