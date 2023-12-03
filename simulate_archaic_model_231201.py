@@ -9,6 +9,8 @@ Usage
     python /home/trc468/mars/simulate_archaic_model_231201.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /home/trc468/notebooks/archaics/simulations_testing_231118/231118_1132 -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+07 -gen 29
     python /home/trc468/mars/simulate_archaic_model_231201.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+07 -gen 29
 
+    python /home/trc468/mars/simulate_archaic_model_231201.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /home/trc468/notebooks/archaics/simulations_testing_231118/231118_1132 -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+06 -gen 29 -T_MH_expand 20000 -N_MH_expand_rate 0.00001
+
 
 """
 from configure_model import *
@@ -125,6 +127,9 @@ parser.add_argument('-p_pulse_superghost_to_DEN','--p_pulse_superghost_to_DEN',h
 parser.add_argument('-N_supersuper_ancestral','--N_supersuper_ancestral',help='(model A) Population size of super super ancestral branch',required=False,type=int)
 parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=int)
 
+parser.add_argument('-T_MH_expand','--T_MH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
+parser.add_argument('-N_MH_expand_rate','--N_MH_expand_rate',help='Rate at which MH expands; if T_MH_expand is not given then N_MH_expand_rate=0 (constant population size)',required=False,type=float,default=0)
+
 parser.add_argument('-L','--L',help='Length of haplotypes',required=True,type=float)
 parser.add_argument('-mu','--mu',help='mutation rate per generation per base pair',required=True,type=float)
 parser.add_argument('-r','--r',help='recombination rate per generation per base pair',required=True,type=float)
@@ -156,6 +161,13 @@ if out_prefix==None:
 if os.path.isdir(os.path.dirname(out_prefix)) is False:
     os.makedirs(os.path.dirname(out_prefix))
 
+if T_MH_expand=='None':
+    T_MH_expand = T_pulse_ghost_to_MH-10
+    N_MH_expand_rate = 0
+else:
+    T_MH_expand = int(T_MH_expand)
+    if N_MH_expand_rate == 0:
+        print(f'T_MH_expand is given but N_MH_expand_rate=0; this is contradictory')
 
 MH_indices = np.array([i for i in range(0,num_MH)]) # indices of MH haplotypes
 NEA_indices = np.array([num_MH,num_MH+1]) # indices of NEA haplotypes
@@ -186,7 +198,9 @@ zdemography = configure_demography(
     T_pulse_superghost_to_DEN,
     T_pulse_MH_to_NEA,
     p_pulse_superghost_to_DEN,
-    p_pulse_MH_to_NEA)
+    p_pulse_MH_to_NEA,
+    T_MH_expand,
+    N_MH_expand_rate)
 
 
 NEA_age = NEA_age/generation_time

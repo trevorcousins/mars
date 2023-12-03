@@ -26,7 +26,9 @@ def configure_demography(
     T_pulse_superghost_to_DEN,
     T_pulse_MH_to_NEA,
     p_pulse_superghost_to_DEN,
-    p_pulse_MH_to_NEA):
+    p_pulse_MH_to_NEA,
+    T_MH_expand,
+    N_MH_expand_rate):
 
     if model=='C':
         variable_names = [
@@ -64,6 +66,7 @@ def configure_demography(
             demography.add_population(name="archaic", description="lineage ancestral to Neanderthals and Denisovans, but derived wrt 'ancestral' ", initial_size=N_archaic)
             demography.add_population(name="neanderthal", description="neanderthals' ", initial_size=N_Neanderthal)
             demography.add_population(name="denisovan", description="denisovans", initial_size=N_Denisovan)
+            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=N_MH_expand_rate)
 
             # add split events
             demography.add_population_split(time=T_super_archaic, ancestral="super_ancestral", derived=["ancestral","ghost"])
@@ -127,6 +130,7 @@ def configure_demography(
             demography.add_population(name="archaic", description="lineage ancestral to Neanderthals and Denisovans, but derived wrt 'ancestral' ", initial_size=N_archaic)
             demography.add_population(name="neanderthal", description="neanderthals' ", initial_size=N_Neanderthal)
             demography.add_population(name="denisovan", description="denisovans", initial_size=N_Denisovan)
+            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=N_MH_expand_rate)
 
             # add split events
             demography.add_population_split(time=T_supersuper_archaic, ancestral="supersuper_ancestral", derived=["super_ancestral","super_ghost"])
