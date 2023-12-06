@@ -44,7 +44,7 @@ def configure_demography(
             "T_den_nea",
             "T_pulse_ghost_to_MH",
             "T_pulse_ghost_to_NEA",
-            "T_pulse_NEA_to_DEN"
+            "T_pulse_NEA_to_DEN",
             "p_pulse_ghost_to_MH",
             "p_pulse_ghost_to_NEA",
             "p_pulse_NEA_to_DEN"

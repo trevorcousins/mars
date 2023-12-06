@@ -53,8 +53,8 @@ def new_clean_genotype_matrix(msim):
 parser = argparse.ArgumentParser(description="Set parameters for simulation")
 parser.add_argument('-num_MH','--num_MH',help='Number of modern human chromosomes to simulate',required=True,type=int,default=12)
 parser.add_argument('-gen','--generation_time',help='Years per generation',required=False,type=int,default=29)
-parser.add_argument('-NEA_age','--NEA_age',help='age of sampling for Neanderthal',required=False,type=int,default=3000)
-parser.add_argument('-DEN_age','--DEN_age',help='age of sampling for Neanderthal',required=False,type=int,default=2500)
+parser.add_argument('-NEA_age','--NEA_age',help='age of sampling for Neanderthal (years)',required=False,type=int,default=100000)
+parser.add_argument('-DEN_age','--DEN_age',help='age of sampling for Neanderthal (years)',required=False,type=int,default=80000)
 parser.add_argument('-model','--model',help='Simulate from model A or model C',required=True,type=str)
 parser.add_argument('-T_super_archaic','--T_super_archaic',help='split time in years of root of (ancestral_humans,ghost)',required=False,type=float)
 parser.add_argument('-T_modern_archaic','--T_modern_archaic',help='split time in years of main human lineage and lineage leading to (DEN,NEA)',required=False,type=float)
@@ -115,6 +115,7 @@ else:
         print(f'T_MH_expand is given but N_MH_expand_rate=0; this is contradictory')
 
 
+
 zdemography = configure_demography(
     model,
     generation_time,
@@ -144,6 +145,9 @@ zdemography = configure_demography(
     T_MH_expand,
     N_MH_expand_rate)
 
+NEA_age = NEA_age/generation_time
+DEN_age = DEN_age/generation_time
+
 MH_indices = [j for j in range(0,num_MH)]
 NEA_index = num_MH # Neanderthal chromosome is the (num_MH+1)th chromosome, which in python indexing is num_MH
 DEN_index = num_MH+1 # Neanderthal chromosome is the (num_MH+2)th chromosome, which in python indexing is num_MH+1
@@ -169,8 +173,7 @@ SFS_YRI_nd11_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with co
 SFS_YRI_nd00_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with condition that Den is ancestral and Nea is ancestral. Include monomorphic and fixed derived
 
 
-NEA_age = NEA_age/generation_time
-DEN_age = DEN_age/generation_time
+
 
 start = time.time()
 for i in range(0,int(replicates)):
