@@ -127,7 +127,7 @@ print(f'N_MH_expand_rate={N_MH_expand_rate}')
 if T_ghost_BN_start==None:
     T_ghost_BN_start = T_super_archaic-2
     T_ghost_BN_end = T_super_archaic-3
-    N_ghost_BN_intensity = N_ghost
+    N_ghost_BN_intensity = 1
 
 if T_ghost_BN_start!=None:
     if T_ghost_BN_start<=T_ghost_BN_end:
