@@ -14,8 +14,10 @@ from configure_model import *
 # example usage 
 # python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 12 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 
 # python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deletemetest -num_MH 50 -mu 1.25e-08 -gen 29 -replicates 1e+04
-# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_MH_expand 30000 -N_MH_expand_rate 0.003
-# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_ghost_BN_start 660000 -T_ghost_BN_end 630000 -N_ghost_BN_intensity 0.2 -gen 30 -N_ghost_recent 7777 -T_MH_expand 40000 -N_modern_present 10000 
+# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_AMH_expand 30000 -N_MH_expand_rate 0.003
+# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_ghost_BN_start 660000 -T_ghost_BN_end 630000 -N_ghost_BN_intensity 0.2 -gen 30 -N_ghost_recent 7777 -T_AMH_expand 40000 -N_AMH_present 10000 
+# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_AMH 40000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 
+# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1.2e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10100 -N_modern 20200 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_ghost_BN_start 660000 -T_ghost_BN_end 630000 -N_ghost_BN_intensity 0.2 -gen 30 -N_ghost_recent 7777 -T_AMH_expand 10000 -N_AMH_present 100000 -N_AMH 12345
 
 def get_all_modern_coaltimes(tree,MH_indices):
     coaltimes = []
@@ -70,6 +72,7 @@ parser.add_argument('-N_super_ancestral','--N_super_ancestral',help='Population 
 parser.add_argument('-N_ancestral','--N_ancestral',help='Population size of ancestral branch',required=False,type=int)
 parser.add_argument('-N_ghost','--N_ghost',help='Population size of ghost lineage',required=False,type=int)
 parser.add_argument('-N_modern','--N_modern',help='Population size of modern human lineage',required=False,type=int)
+parser.add_argument('-N_AMH','--N_AMH',help='Population size of modern human lineage after (forward in time) the ghost contributes to modern humans',required=False,type=int)
 parser.add_argument('-N_archaic','--N_archaic',help='Population size of archaic branch',required=False,type=int)
 parser.add_argument('-N_Neanderthal','--N_Neanderthal',help='Population size of Neanderthal lineage',required=False,type=int)
 parser.add_argument('-N_Denisovan','--N_Denisovan',help='Population size of Denisovan lineage',required=False,type=int)
@@ -80,8 +83,8 @@ parser.add_argument('-p_pulse_MH_to_NEA','--p_pulse_MH_to_NEA',help='(model A) p
 parser.add_argument('-p_pulse_superghost_to_DEN','--p_pulse_superghost_to_DEN',help='(model A) pulse fraction for introgression from superghost into Denisovans',required=False,type=float)
 parser.add_argument('-N_supersuper_ancestral','--N_supersuper_ancestral',help='(model A) Population size of super super ancestral branch',required=False,type=int)
 parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=int)
-parser.add_argument('-T_MH_expand','--T_MH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
-parser.add_argument('-N_modern_present','--N_modern_present',help='Population size of modern human lineage at present; at time T_MH_expand start growing exponentially (forwards in time) to reach size N_modern_present',required=False,type=float,default=0)
+parser.add_argument('-T_AMH_expand','--T_AMH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
+parser.add_argument('-N_AMH_present','--N_AMH_present',help='Population size of modern human lineage at present; at time T_AMH_expand start growing exponentially (forwards in time) to reach size N_AMH_present',required=False,type=float,default=0)
 parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='Population size of ghost lineage after (forwards in time) it introgresses into Neanderthal but before it introgresses into MH',required=False,type=float)
 parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
@@ -112,15 +115,15 @@ if num_MH<5:
 if os.path.isdir(os.path.dirname(out_SFS)) is False:
     os.makedirs(os.path.dirname(out_SFS))
 
-if T_MH_expand=='None':
-    T_MH_expand = T_pulse_ghost_to_MH-10
-    N_modern_present=N_modern
+if T_AMH_expand=='None':
+    T_AMH_expand = T_pulse_ghost_to_MH-10
+    N_AMH_present=N_AMH
 else:
-    T_MH_expand = int(T_MH_expand)
-    if N_modern_present==None:
-        print(f'T_MH_expand is given but N_modern_present is not given; this is contraditcory')
-        N_modern_present=N_modern
-N_MH_expand_rate = -np.log(N_modern/N_modern_present)/(T_MH_expand/generation_time)
+    T_AMH_expand = int(T_AMH_expand)
+    if N_AMH_present==None:
+        print(f'T_AMH_expand is given but N_AMH_present is not given; this is contraditcory')
+        N_AMH_present=N_AMH
+N_MH_expand_rate = -np.log(N_AMH/N_AMH_present)/(T_AMH_expand/generation_time)
 print(f'N_MH_expand_rate={N_MH_expand_rate}')
 
 
@@ -133,6 +136,9 @@ if T_ghost_BN_start!=None:
     if T_ghost_BN_start<=T_ghost_BN_end:
         print(f'T_ghost_BN_start must be greater than T_ghost_BN_end. Aborting')
         sys.exit()
+
+if N_ghost_recent==None:
+    N_ghost_recent = N_ghost
 
 zdemography = configure_demography(
     model,
@@ -160,13 +166,14 @@ zdemography = configure_demography(
     T_pulse_MH_to_NEA,
     p_pulse_superghost_to_DEN,
     p_pulse_MH_to_NEA,
-    T_MH_expand,
+    T_AMH_expand,
     N_MH_expand_rate,
-    N_modern_present,
+    N_AMH_present,
     N_ghost_recent,
     T_ghost_BN_start,
     T_ghost_BN_end,
-    N_ghost_BN_intensity
+    N_ghost_BN_intensity,
+    N_AMH
     )
 
 NEA_age = NEA_age/generation_time
