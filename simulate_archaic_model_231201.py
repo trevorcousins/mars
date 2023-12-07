@@ -128,7 +128,12 @@ parser.add_argument('-N_supersuper_ancestral','--N_supersuper_ancestral',help='(
 parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=int)
 
 parser.add_argument('-T_MH_expand','--T_MH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
-parser.add_argument('-N_MH_expand_rate','--N_MH_expand_rate',help='Rate at which MH expands; if T_MH_expand is not given then N_MH_expand_rate=0 (constant population size)',required=False,type=float,default=0)
+parser.add_argument('-N_modern_present','--N_modern_present',help='Population size of modern human lineage at present; at time T_MH_expand start growing exponentially (forwards in time) to reach size N_modern_present',required=False,type=float,default=0)
+parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='Population size of ghost lineage after (forwards in time) it introgresses into Neanderthal but before it introgresses into MH',required=False,type=float)
+parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
+parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
+parser.add_argument('-N_ghost_BN_intensity','--N_ghost_BN_intensity',help='Intensity of bottleneck in ghost lineage; population size contracts to N_ghost_BN_intensity*N_ghost at time T_ghost_BN_start and remains until T_ghost_BN_end; after which it returns to N_ghost',required=False,type=float)
+
 
 parser.add_argument('-L','--L',help='Length of haplotypes',required=True,type=float)
 parser.add_argument('-mu','--mu',help='mutation rate per generation per base pair',required=True,type=float)
@@ -161,13 +166,30 @@ if out_prefix==None:
 if os.path.isdir(os.path.dirname(out_prefix)) is False:
     os.makedirs(os.path.dirname(out_prefix))
 
+
+pdb.set_trace()
+
 if T_MH_expand=='None':
     T_MH_expand = T_pulse_ghost_to_MH-10
-    N_MH_expand_rate = 0
+    N_modern_present=N_modern
 else:
     T_MH_expand = int(T_MH_expand)
-    if N_MH_expand_rate == 0:
-        print(f'T_MH_expand is given but N_MH_expand_rate=0; this is contradictory')
+    if N_modern_present==None:
+        print(f'T_MH_expand is given but N_modern_present is not given; this is contraditcory')
+        N_modern_present=N_modern
+
+N_MH_expand_rate = -np.log(N_modern/N_modern_present)/(T_MH_expand/generation_time)
+print(f'N_MH_expand_rate={N_MH_expand_rate}')
+
+if T_ghost_BN_start==None:
+    T_ghost_BN_start = T_super_archaic-2
+    T_ghost_BN_end = T_super_archaic-3
+    N_ghost_BN_intensity = N_ghost
+
+if T_ghost_BN_start!=None:
+    if T_ghost_BN_start<=T_ghost_BN_end:
+        print(f'T_ghost_BN_start must be greater than T_ghost_BN_end. Aborting')
+        sys.exit()
 
 MH_indices = np.array([i for i in range(0,num_MH)]) # indices of MH haplotypes
 NEA_indices = np.array([num_MH,num_MH+1]) # indices of NEA haplotypes
@@ -200,7 +222,9 @@ zdemography = configure_demography(
     p_pulse_superghost_to_DEN,
     p_pulse_MH_to_NEA,
     T_MH_expand,
-    N_MH_expand_rate)
+    N_MH_expand_rate,
+    N_modern_present,
+    N_ghost_recent)
 
 
 NEA_age = NEA_age/generation_time

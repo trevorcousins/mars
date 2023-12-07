@@ -15,6 +15,7 @@ from configure_model import *
 # python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 12 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 
 # python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deletemetest -num_MH 50 -mu 1.25e-08 -gen 29 -replicates 1e+04
 # python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_MH_expand 30000 -N_MH_expand_rate 0.003
+# python /home/trc468/mars/simulate_SFS_cSFS_2301201.py -model C -num_MH 50 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.3 -p_pulse_ghost_to_NEA 0.01 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_SFS /tmp/deleteme -replicates 1e+04 -T_ghost_BN_start 660000 -T_ghost_BN_end 630000 -N_ghost_BN_intensity 0.2 -gen 30 -N_ghost_recent 7777 -T_MH_expand 40000 -N_modern_present 10000 
 
 def get_all_modern_coaltimes(tree,MH_indices):
     coaltimes = []
@@ -80,7 +81,12 @@ parser.add_argument('-p_pulse_superghost_to_DEN','--p_pulse_superghost_to_DEN',h
 parser.add_argument('-N_supersuper_ancestral','--N_supersuper_ancestral',help='(model A) Population size of super super ancestral branch',required=False,type=int)
 parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=int)
 parser.add_argument('-T_MH_expand','--T_MH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
-parser.add_argument('-N_MH_expand_rate','--N_MH_expand_rate',help='Rate at which MH expands; if T_MH_expand is not given then N_MH_expand_rate=0 (constant population size)',required=False,type=float,default=0)
+parser.add_argument('-N_modern_present','--N_modern_present',help='Population size of modern human lineage at present; at time T_MH_expand start growing exponentially (forwards in time) to reach size N_modern_present',required=False,type=float,default=0)
+parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='Population size of ghost lineage after (forwards in time) it introgresses into Neanderthal but before it introgresses into MH',required=False,type=float)
+parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
+parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
+parser.add_argument('-N_ghost_BN_intensity','--N_ghost_BN_intensity',help='Intensity of bottleneck in ghost lineage; population size contracts to N_ghost_BN_intensity*N_ghost at time T_ghost_BN_start and remains until T_ghost_BN_end; after which it returns to N_ghost',required=False,type=float)
+
 parser.add_argument('-mu','--mu',help='mutation rate per generation per base pair',required=False,type=float)
 # parser.add_argument('-r','--r',help='recombination rate per generation per base pair',required=True,type=float)
 parser.add_argument('-out_SFS','--out_SFS',help='output path for SFS',required=True,type=str)
@@ -108,13 +114,25 @@ if os.path.isdir(os.path.dirname(out_SFS)) is False:
 
 if T_MH_expand=='None':
     T_MH_expand = T_pulse_ghost_to_MH-10
-    N_MH_expand_rate = 0
+    N_modern_present=N_modern
 else:
     T_MH_expand = int(T_MH_expand)
-    if N_MH_expand_rate == 0:
-        print(f'T_MH_expand is given but N_MH_expand_rate=0; this is contradictory')
+    if N_modern_present==None:
+        print(f'T_MH_expand is given but N_modern_present is not given; this is contraditcory')
+        N_modern_present=N_modern
+N_MH_expand_rate = -np.log(N_modern/N_modern_present)/(T_MH_expand/generation_time)
+print(f'N_MH_expand_rate={N_MH_expand_rate}')
 
 
+if T_ghost_BN_start==None:
+    T_ghost_BN_start = T_super_archaic-2
+    T_ghost_BN_end = T_super_archaic-3
+    N_ghost_BN_intensity = N_ghost
+
+if T_ghost_BN_start!=None:
+    if T_ghost_BN_start<=T_ghost_BN_end:
+        print(f'T_ghost_BN_start must be greater than T_ghost_BN_end. Aborting')
+        sys.exit()
 
 zdemography = configure_demography(
     model,
@@ -143,7 +161,13 @@ zdemography = configure_demography(
     p_pulse_superghost_to_DEN,
     p_pulse_MH_to_NEA,
     T_MH_expand,
-    N_MH_expand_rate)
+    N_MH_expand_rate,
+    N_modern_present,
+    N_ghost_recent,
+    T_ghost_BN_start,
+    T_ghost_BN_end,
+    N_ghost_BN_intensity
+    )
 
 NEA_age = NEA_age/generation_time
 DEN_age = DEN_age/generation_time
@@ -171,7 +195,6 @@ SFS_YRI_nd10_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with co
 SFS_YRI_nd01_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with condition that Den is derived and Nea is ancestral. Include monomorphic and fixed derived
 SFS_YRI_nd11_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with condition that Nea is derived and Den is derived. Include monomorphic and fixed derived
 SFS_YRI_nd00_branch = np.zeros(num_derived_alleles) # branch SFS for YRI with condition that Den is ancestral and Nea is ancestral. Include monomorphic and fixed derived
-
 
 
 

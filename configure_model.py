@@ -1,5 +1,6 @@
 import msprime
 import sys
+import pdb 
 
 def configure_demography(
     model,
@@ -28,7 +29,13 @@ def configure_demography(
     p_pulse_superghost_to_DEN,
     p_pulse_MH_to_NEA,
     T_MH_expand,
-    N_MH_expand_rate):
+    N_MH_expand_rate,
+    N_modern_present,
+    N_ghost_recent,
+    T_ghost_BN_start,
+    T_ghost_BN_end,
+    N_ghost_BN_intensity
+    ):
 
     if model=='C':
         variable_names = [
@@ -56,6 +63,10 @@ def configure_demography(
             T_pulse_ghost_to_MH = T_pulse_ghost_to_MH/generation_time  # time in generations at which super archaic ghost introgresses into modern humans
             T_pulse_ghost_to_NEA = T_pulse_ghost_to_NEA/generation_time # time in generations at which super archaic ghost introgresses into Neanderthals
             T_pulse_NEA_to_DEN = T_pulse_NEA_to_DEN/generation_time # time in generations at which Neanderthals introgress into Denisovans   
+            T_MH_expand = T_MH_expand/generation_time
+            T_ghost_BN_start = T_ghost_BN_start/generation_time
+            T_ghost_BN_end = T_ghost_BN_end/generation_time
+
 
             # configure demography
             demography = msprime.Demography()
@@ -66,7 +77,14 @@ def configure_demography(
             demography.add_population(name="archaic", description="lineage ancestral to Neanderthals and Denisovans, but derived wrt 'ancestral' ", initial_size=N_archaic)
             demography.add_population(name="neanderthal", description="neanderthals' ", initial_size=N_Neanderthal)
             demography.add_population(name="denisovan", description="denisovans", initial_size=N_Denisovan)
-            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=N_MH_expand_rate)
+            demography.add_population_parameters_change(time=0, population="modern", initial_size=N_modern_present,growth_rate=N_MH_expand_rate)
+            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=0)
+
+            demography.add_population_parameters_change(time=T_ghost_BN_start, population="ghost", initial_size=N_ghost,growth_rate=0)
+            demography.add_population_parameters_change(time=T_ghost_BN_end, population="ghost", initial_size=N_ghost*N_ghost_BN_intensity,growth_rate=0)
+
+            if N_ghost_recent:
+                demography.add_population_parameters_change(time=T_pulse_ghost_to_NEA, population="ghost", initial_size=N_ghost_recent,growth_rate=0)
 
             # add split events
             demography.add_population_split(time=T_super_archaic, ancestral="super_ancestral", derived=["ancestral","ghost"])
@@ -112,6 +130,7 @@ def configure_demography(
         "p_pulse_NEA_to_DEN"    
         ]
         try:
+            T_supersuper_archaic = T_supersuper_archaic/generation_time # split time in generations of root of (ancestral_humans,ghost)
             T_super_archaic = T_super_archaic/generation_time # split time in generations of root of (ancestral_humans,ghost)
             T_modern_archaic = T_modern_archaic/generation_time # split time in generations of main human lineage and lineage leading to (DEN,NEA)
             T_den_nea = T_den_nea/generation_time # split time in generations between NEA and DEN
@@ -119,7 +138,8 @@ def configure_demography(
             T_pulse_ghost_to_MH = T_pulse_ghost_to_MH/generation_time  # time in generations at which super archaic ghost introgresses into modern humans
             T_pulse_MH_to_NEA = T_pulse_MH_to_NEA/generation_time # time in generations at which modern humans introgresses into Neanderthals
             T_pulse_NEA_to_DEN = T_pulse_NEA_to_DEN/generation_time # time in generations at which Neanderthals introgress into Denisovans   
-
+            T_MH_expand = T_MH_expand/generation_time
+            
             demography = msprime.Demography()
             demography.add_population(name="supersuper_ancestral", description="supersuper ancestral population, including 'super ancestral' and 'super ghost", initial_size=N_supersuper_ancestral)
             demography.add_population(name="super_ghost", description="super ghost which introgresses into Denisovan", initial_size=N_superghost)
@@ -130,8 +150,9 @@ def configure_demography(
             demography.add_population(name="archaic", description="lineage ancestral to Neanderthals and Denisovans, but derived wrt 'ancestral' ", initial_size=N_archaic)
             demography.add_population(name="neanderthal", description="neanderthals' ", initial_size=N_Neanderthal)
             demography.add_population(name="denisovan", description="denisovans", initial_size=N_Denisovan)
-            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=N_MH_expand_rate)
-
+            demography.add_population_parameters_change(time=0, population="modern", initial_size=N_modern_present,growth_rate=N_MH_expand_rate)
+            demography.add_population_parameters_change(time=T_MH_expand, population="modern", initial_size=N_modern,growth_rate=0)
+            
             # add split events
             demography.add_population_split(time=T_supersuper_archaic, ancestral="supersuper_ancestral", derived=["super_ancestral","super_ghost"])
             demography.add_population_split(time=T_super_archaic, ancestral="super_ancestral", derived=["ancestral","ghost"])
@@ -150,5 +171,7 @@ def configure_demography(
                 print(f'\t{qq}')
             print(f'Aborting.')
             sys.exit()
+    print(demography)
+    print(demography.debug())
     return demography
     
