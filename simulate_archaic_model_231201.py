@@ -10,7 +10,7 @@ Usage
     python /home/trc468/mars/simulate_archaic_model_231201.py -model A -T_supersuper_archaic 1.2e+06 -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_MH_to_NEA 3e+05 -T_pulse_superghost_to_DEN 1e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_superghost_to_DEN 0.05 -p_pulse_MH_to_NEA 0.06 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_supersuper_ancestral 10000 -N_superghost 10000 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /tmp/deletemetest -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+07 -gen 29
 
     python /home/trc468/mars/simulate_archaic_model_231201.py -model C -T_super_archaic 1e+06 -T_modern_archaic 8e+05 -T_den_nea 4e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 3e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.1 -p_pulse_ghost_to_NEA 0.4 -p_pulse_NEA_to_DEN 0.03 -mu 1.25e-08 -N_super_ancestral 10000 -N_ancestral 10000 -N_ghost 10000 -N_modern 20000 -N_archaic 10000 -N_Neanderthal 1000 -N_Denisovan 1000 -out_prefix /home/trc468/notebooks/archaics/simulations_testing_231118/231118_1132 -num_MH 50 -mu 1.25e-08 -r 1e-08 -L 1e+06 -gen 29 -T_AMH_expand 20000 -N_MH_expand_rate 0.00001
-
+    python /home/trc468/mars/simulate_archaic_model_231201.py -model C -T_super_archaic 7.5e+05 -T_modern_archaic 6e+05 -T_den_nea 3.5e+05 -T_pulse_ghost_to_MH 1e+05 -T_pulse_ghost_to_NEA 2.5e+05 -T_pulse_NEA_to_DEN 8e+04 -p_pulse_ghost_to_MH 0.9 -p_pulse_ghost_to_NEA 0.1 -p_pulse_NEA_to_DEN 0.05 -N_super_ancestral 20000 -N_ancestral 20000 -N_ghost 20000 -N_modern 20000 -N_AMH 30000 -N_archaic 15000 -N_Neanderthal 1000 -N_Denisovan 1000  -num_MH 42 -gen 29 -DEN_age 80000 -NEA_age 100000 -T_AMH_expand 1e+04 -N_AMH_present 1e+06 -mu 1.25e-08 -r 1e-08 -L 1e+07 -out_prefix /n/scratch3/users/t/trc468/mars_simulations_231204/231211_2200_modelC_numMH42_L1e07_7.5e+05_6e+05_3.5e+05_1e+05_2.5e+05_8e+04_0.9_0.1_0.05_20000_20000_20000_20000_15000_1000_1000_1e+04_1e+06
 
 """
 from configure_model import *
@@ -111,14 +111,14 @@ parser.add_argument('-T_pulse_NEA_to_DEN','--T_pulse_NEA_to_DEN',help='time in y
 parser.add_argument('-p_pulse_ghost_to_MH','--p_pulse_ghost_to_MH',help='pulse fraction for archaic ghost introgression into modern humans',required=False,type=float)
 parser.add_argument('-p_pulse_ghost_to_NEA','--p_pulse_ghost_to_NEA',help='(model C) pulse fraction for archaic ghost introgression into Neanderthals',required=False,type=float)
 parser.add_argument('-p_pulse_NEA_to_DEN','--p_pulse_NEA_to_DEN',help='pulse fraction for introgression into Denisovans',required=False,type=float)
-parser.add_argument('-N_super_ancestral','--N_super_ancestral',help='Population size of super ancestral branch',required=False,type=int)
-parser.add_argument('-N_ancestral','--N_ancestral',help='Population size of ancestral branch',required=False,type=int)
-parser.add_argument('-N_ghost','--N_ghost',help='Population size of ghost lineage',required=False,type=int)
-parser.add_argument('-N_modern','--N_modern',help='Population size of modern human lineage',required=False,type=int)
-parser.add_argument('-N_AMH','--N_AMH',help='Population size of modern human lineage after (forward in time) the ghost contributes to modern humans',required=False,type=int)
-parser.add_argument('-N_archaic','--N_archaic',help='Population size of archaic branch',required=False,type=int)
-parser.add_argument('-N_Neanderthal','--N_Neanderthal',help='Population size of Neanderthal lineage',required=False,type=int)
-parser.add_argument('-N_Denisovan','--N_Denisovan',help='Population size of Denisovan lineage',required=False,type=int)
+parser.add_argument('-N_super_ancestral','--N_super_ancestral',help='Population size of super ancestral branch',required=False,type=float)
+parser.add_argument('-N_ancestral','--N_ancestral',help='Population size of ancestral branch',required=False,type=float)
+parser.add_argument('-N_ghost','--N_ghost',help='Population size of ghost lineage',required=False,type=float)
+parser.add_argument('-N_modern','--N_modern',help='Population size of modern human lineage',required=False,type=float)
+parser.add_argument('-N_AMH','--N_AMH',help='Population size of modern human lineage after (forward in time) the ghost contributes to modern humans',required=False,type=float)
+parser.add_argument('-N_archaic','--N_archaic',help='Population size of archaic branch',required=False,type=float)
+parser.add_argument('-N_Neanderthal','--N_Neanderthal',help='Population size of Neanderthal lineage',required=False,type=float)
+parser.add_argument('-N_Denisovan','--N_Denisovan',help='Population size of Denisovan lineage',required=False,type=float)
 
 parser.add_argument('-T_supersuper_archaic','--T_supersuper_archaic',help='(model A) split time in years of root of (T_super_archaic,super_ghost)',required=False,type=float)
 parser.add_argument('-T_pulse_superghost_to_DEN','--T_pulse_superghost_to_DEN',help='(model A) time in years at which superghost lineage introgresses into Denisovans',required=False,type=float)
@@ -126,10 +126,10 @@ parser.add_argument('-T_pulse_MH_to_NEA','--T_pulse_MH_to_NEA',help='(model A) t
 parser.add_argument('-p_pulse_MH_to_NEA','--p_pulse_MH_to_NEA',help='(model A) pulse fraction for MH introgression into Neanderthals',required=False,type=float)
 parser.add_argument('-p_pulse_superghost_to_DEN','--p_pulse_superghost_to_DEN',help='(model A) pulse fraction for introgression from superghost into Denisovans',required=False,type=float)
 parser.add_argument('-N_supersuper_ancestral','--N_supersuper_ancestral',help='(model A) Population size of super super ancestral branch',required=False,type=int)
-parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=int)
+parser.add_argument('-N_superghost','--N_superghost',help='(model A) Population size of superghost lineage (the one that introgresses into Neanderthal)',required=False,type=float)
 
-parser.add_argument('-T_AMH_expand','--T_AMH_expand',help='Time at which MH begin to exponentially expand',required=False,type=str,default='None')
-parser.add_argument('-N_AMH_present','--N_AMH_present',help='Population size of modern human lineage at present; at time T_AMH_expand start growing exponentially (forwards in time) to reach size N_AMH_present',required=False,type=float,default=0)
+parser.add_argument('-T_AMH_expand','--T_AMH_expand',help='Time at which MH begin to exponentially expand',required=False,type=float)
+parser.add_argument('-N_AMH_present','--N_AMH_present',help='Population size of modern human lineage at present; at time T_AMH_expand start growing exponentially (forwards in time) to reach size N_AMH_present',required=False,type=float)
 parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='Population size of ghost lineage after (forwards in time) it introgresses into Neanderthal but before it introgresses into MH',required=False,type=float)
 parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
@@ -226,6 +226,9 @@ zdemography = configure_demography(
     N_MH_expand_rate,
     N_AMH_present,
     N_ghost_recent,
+    T_ghost_BN_start,
+    T_ghost_BN_end,
+    N_ghost_BN_intensity,
     N_AMH
     )
 
