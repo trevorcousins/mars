@@ -90,6 +90,7 @@ parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='(model C) Populat
 parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-N_ghost_BN_intensity','--N_ghost_BN_intensity',help='Intensity of bottleneck in ghost lineage; population size contracts to N_ghost_BN_intensity*N_ghost at time T_ghost_BN_start and remains until T_ghost_BN_end; after which it returns to N_ghost',required=False,type=float)
+parser.add_argument('-Cprime_introgression','--Cprime_introgression',help='If model is Cprime, which population does the superghost introgress in to? If "a", then into Denisovans; if "b" then into the ancestors of Neanderthals and Denisovans ("archaic"); if "c" then the ancestors of modern humans, Neanderthals and Denisovans ("ancestral"). T_pulse_superghost_to_DEN must reflect this.',required=False,type=str,default="a")
 
 parser.add_argument('-mu','--mu',help='mutation rate per generation per base pair',required=False,type=float)
 # parser.add_argument('-r','--r',help='recombination rate per generation per base pair',required=True,type=float)
@@ -98,7 +99,9 @@ parser.add_argument('-replicates','--replicates',help='Number of replicates for 
 parser.add_argument('-mutationmodel','--mutationmodel',help='Model to use for mutation',required=False,type=str,default="jc69")
 parser.add_argument('-record_muts','--record_muts',help='Binary for recording mutations or not',action='store_true')
 
-
+arguments = sys.argv[1:]
+command_line = 'python ' + ' '.join(['"{}"'.format(arg) if ' ' in arg else arg for arg in [sys.argv[0]] + arguments])
+print(f'Command line: {command_line}')
 
 
 args = parser.parse_args()
@@ -176,7 +179,8 @@ zdemography = configure_demography(
     T_ghost_BN_start,
     T_ghost_BN_end,
     N_ghost_BN_intensity,
-    N_AMH
+    N_AMH,
+    Cprime_introgression
     )
 
 NEA_age = NEA_age/generation_time

@@ -36,6 +36,7 @@ def configure_demography(
     T_ghost_BN_end,
     N_ghost_BN_intensity,
     N_AMH,
+    Cprime_introgression
     ):
     if model=='C':
         variable_names = [ # required
@@ -184,7 +185,24 @@ def configure_demography(
             demography.add_mass_migration(time=T_pulse_ghost_to_MH, source='modern', dest='ghost', proportion=p_pulse_ghost_to_MH)
             demography.add_mass_migration(time=T_pulse_ghost_to_NEA, source='neanderthal', dest='ghost', proportion=p_pulse_ghost_to_NEA)    
             demography.add_mass_migration(time=T_pulse_NEA_to_DEN, source='denisovan', dest='neanderthal', proportion=p_pulse_NEA_to_DEN)
-            demography.add_mass_migration(time=T_pulse_superghost_to_DEN, source='denisovan', dest='superghost', proportion=p_pulse_superghost_to_DEN)
+            if Cprime_introgression=='a': # superghost introgresses into Denisovans
+                if not T_pulse_superghost_to_DEN<T_den_nea:
+                    print(f'ERROR: Introgression from superghost into Denisovans must be less than the time at which Denisovans and Neanderthals split, but T_pulse_superghost_to_DEN={T_pulse_superghost_to_DEN} and  T_den_nea={T_den_nea}. Aborting.')
+                    sys.exit()
+                demography.add_mass_migration(time=T_pulse_superghost_to_DEN, source='denisovan', dest='superghost', proportion=p_pulse_superghost_to_DEN)
+            elif Cprime_introgression=='b': # superghost introgresses into the ancestors of (Denisovans,Neanderthals)
+                if not (T_pulse_superghost_to_DEN>T_den_nea and T_pulse_superghost_to_DEN<T_modern_archaic) :
+                    print(f'ERROR: Introgression from superghost into archaic (ancestors of Neanderthals and Denisovans) must be more than the time at which Denisovans and Neanderthals split, and less than time at which (Neanderthals,Denisovans) and humans split, but T_pulse_superghost_to_DEN={T_pulse_superghost_to_DEN} and T_den_nea={T_den_nea} and T_modern_archaic={T_modern_archaic}.Aborting.')
+                    sys.exit()    
+                demography.add_mass_migration(time=T_pulse_superghost_to_DEN, source='archaic', dest='superghost', proportion=p_pulse_superghost_to_DEN)
+            elif Cprime_introgression=='c': # superghost introgresses into the ancestors of (modern humans, ((Denisovans,Neanderthals)))
+                if not (T_pulse_superghost_to_DEN<T_super_archaic and T_pulse_superghost_to_DEN>T_modern_archaic) :
+                    print(f'ERROR: Introgression from superghost into ancestral (ancestors of (Neanderthals,Denisovans) and modern humans) must be more than the time at which (Neanderthals,Denisovans) and modern humans split, and less than time at which ((Neanderthals,Denisovans),modern_humans) split from the ghost that introgresses into humans and Neanderthals, but T_pulse_superghost_to_DEN={T_pulse_superghost_to_DEN} and T_modern_archaic={T_modern_archaic} and T_super_archaic={T_super_archaic}.Aborting.')
+                    sys.exit()
+                demography.add_mass_migration(time=T_pulse_superghost_to_DEN, source='ancestral', dest='superghost', proportion=p_pulse_superghost_to_DEN)
+            else:
+                print(f'ERROR: Cprime_introgression={Cprime_introgression} is not a or b or c. Aborting')
+                sys.exit()
             demography.sort_events()
         except:
             print(f'ERROR: missing input parameters for model C. The required parameters are')

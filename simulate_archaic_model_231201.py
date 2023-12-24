@@ -134,6 +134,7 @@ parser.add_argument('-N_ghost_recent','--N_ghost_recent',help='Population size o
 parser.add_argument('-T_ghost_BN_start','--T_ghost_BN_start',help='Start time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-T_ghost_BN_end','--T_ghost_BN_end',help='End time in years (going forwards in time) of bottleneck in ghost lineage',required=False,type=float)
 parser.add_argument('-N_ghost_BN_intensity','--N_ghost_BN_intensity',help='Intensity of bottleneck in ghost lineage; population size contracts to N_ghost_BN_intensity*N_ghost at time T_ghost_BN_start and remains until T_ghost_BN_end; after which it returns to N_ghost',required=False,type=float)
+parser.add_argument('-Cprime_introgression','--Cprime_introgression',help='If model is Cprime, which population does the superghost introgress in to? If "a", then into Denisovans; if "b" then into the ancestors of Neanderthals and Denisovans ("archaic"); if "c" then the ancestors of modern humans, Neanderthals and Denisovans ("ancestral"). T_pulse_superghost_to_DEN must reflect this.',required=False,type=str,default="a")
 
 
 parser.add_argument('-L','--L',help='Length of haplotypes',required=True,type=float)
@@ -229,7 +230,8 @@ zdemography = configure_demography(
     T_ghost_BN_start,
     T_ghost_BN_end,
     N_ghost_BN_intensity,
-    N_AMH
+    N_AMH,
+    Cprime_introgression
     )
 
 
