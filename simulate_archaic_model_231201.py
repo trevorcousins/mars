@@ -158,7 +158,7 @@ for zarg in zargs:
 if num_MH<4:
     print(f'ERROR: num_MH must be bigger than or equal to 4; currently it is {num_MH}. Aborting')
     sys.exit()
-if model!='A' and model!='C':
+if model!='A' and model!='C' and model!='Cprime':
     print(f'ERROR: model must be A or C; currently it is {model}. Aborint')
     sys.exit()
 
