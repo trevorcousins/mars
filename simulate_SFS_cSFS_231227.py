@@ -131,7 +131,11 @@ else:
 N_MH_expand_rate = -np.log(N_AMH/N_AMH_present)/(T_AMH_expand/generation_time)
 print(f'N_MH_expand_rate={N_MH_expand_rate}')
 
+if (T_super_archaic >= T_supersuper_archaic):
+    print(f'ERROR: T_super_archaic={T_super_archaic} must be bigger than or equal to T_supersuper_archaic={T_supersuper_archaic}. Aborting.')
+    sys.exit()
 
+    
 if (T_ghost_BN_start==None and T_ghost_BN_end==None and N_ghost_BN_intensity==None):
     T_ghost_BN_start = T_super_archaic-2
     T_ghost_BN_end = T_super_archaic-3
