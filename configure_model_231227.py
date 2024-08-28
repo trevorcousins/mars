@@ -195,8 +195,16 @@ def configure_demography(
                 
             # pdb.set_trace()
             # add pulse introgression events
-            demography.add_mass_migration(time=T_pulse_ghost_to_MH, source='modern', dest='ghost_human', proportion=p_pulse_ghost_to_MH)
-            demography.add_mass_migration(time=T_NEA_admix, source='neanderthal', dest='ghost_nea', proportion=p_pulse_ghost_to_NEA)    
+            if T_pulse_ghost_to_MH<T_pulse_ghost_to_NEA: # conventional Cprime_a diagram
+                demography.add_mass_migration(time=T_pulse_ghost_to_MH, source='modern', dest='ghost_human', proportion=p_pulse_ghost_to_MH)
+            elif T_pulse_ghost_to_MH>T_pulse_ghost_to_NEA: # un-conventional Cprime_a diagram, in which ghost introgression goes in to humans before ghost splits in to two lineages (one of which goes to Neanderthal)
+                print(f'\tWARNING: unconventional timing of T_pulse_ghost_to_MH={T_pulse_ghost_to_MH} and T_pulse_ghost_to_NEA={T_pulse_ghost_to_NEA}. Should be ok though.')
+                demography.add_mass_migration(time=T_pulse_ghost_to_MH, source='modern', dest='ghost', proportion=p_pulse_ghost_to_MH)
+            if T_NEA_admix<T_pulse_ghost_to_NEA: # conventional Cprime_a diagram
+                demography.add_mass_migration(time=T_NEA_admix, source='neanderthal', dest='ghost_nea', proportion=p_pulse_ghost_to_NEA)    
+            elif T_NEA_admix>T_pulse_ghost_to_NEA: # un conventional Cprime_a diagram, , in which ghost introgression goes in to Neanderthals before ghost splits in to two lineages (one of which goes to Neanderthal)
+                print(f'\tWARNING: unconventional timing of T_NEA_admix={T_NEA_admix} and T_pulse_ghost_to_NEA={T_pulse_ghost_to_NEA}. Should be ok though.')
+                demography.add_mass_migration(time=T_NEA_admix, source='neanderthal', dest='ghost', proportion=p_pulse_ghost_to_NEA)    
             demography.add_mass_migration(time=T_pulse_NEA_to_DEN, source='denisovan', dest='neanderthal', proportion=p_pulse_NEA_to_DEN)
             if Cprime_introgression=='a': # superghost introgresses into Denisovans
                 if not T_pulse_superghost_to_DEN<T_den_nea:
